@@ -12,6 +12,8 @@ public class FirefinDbContext : DbContext
     public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
     public DbSet<Batch> Batches => Set<Batch>();
     public DbSet<BatchNote> BatchNotes => Set<BatchNote>();
+    public DbSet<Order> Orders => Set<Order>();
+    public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,6 +50,22 @@ public class FirefinDbContext : DbContext
                 .WithOne(n => n.Batch!)
                 .HasForeignKey(n => n.BatchId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<Order>(e =>
+        {
+            e.HasIndex(o => o.OrderNumber).IsUnique();
+            e.Property(o => o.Subtotal).HasPrecision(10, 2);
+            e.HasMany(o => o.Items)
+                .WithOne(i => i.Order!)
+                .HasForeignKey(i => i.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<OrderItem>(e =>
+        {
+            e.Property(i => i.UnitPrice).HasPrecision(10, 2);
+            e.Property(i => i.LineTotal).HasPrecision(10, 2);
         });
     }
 }

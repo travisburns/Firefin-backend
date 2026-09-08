@@ -13,6 +13,7 @@ builder.Services.AddDbContext<FirefinDbContext>(options =>
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRecipeService, RecipeService>();
 builder.Services.AddScoped<IBatchService, BatchService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services
     .AddControllers()

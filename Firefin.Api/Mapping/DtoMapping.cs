@@ -28,4 +28,13 @@ public static class DtoMapping
         b.Id, b.RecipeId, b.BatchNumber, b.MadeOn, b.MadeBy, b.Rating,
         b.Verdict, b.Summary, b.CreatedAt,
         b.Notes.Select(n => n.ToDto()).ToList());
+
+    public static OrderItemDto ToDto(this OrderItem i) =>
+        new(i.Id, i.ProductId, i.Title, i.Subtitle, i.UnitPrice, i.Quantity, i.LineTotal);
+
+    public static OrderDto ToDto(this Order o) => new(
+        o.Id, o.OrderNumber, o.Status, o.CustomerName, o.CustomerEmail,
+        o.ShippingLine1, o.ShippingLine2, o.ShippingCity, o.ShippingRegion,
+        o.ShippingPostalCode, o.ShippingCountry, o.Subtotal, o.CreatedAt, o.PaidAt,
+        o.Items.Select(i => i.ToDto()).ToList());
 }
