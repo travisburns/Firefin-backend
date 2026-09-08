@@ -1,0 +1,23 @@
+# .NET build output
+bin/
+obj/
+out/
+
+# Rider / VS
+.vs/
+.idea/
+*.user
+*.suo
+
+# EF / local db artifacts
+*.mdf
+*.ldf
+
+# Env / secrets
+appsettings.*.local.json
+*.env
+.env
+
+# OS
+.DS_Store
+Thumbs.db
