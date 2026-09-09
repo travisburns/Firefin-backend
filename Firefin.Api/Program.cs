@@ -38,11 +38,10 @@ using (var scope = app.Services.CreateScope())
     await DbSeeder.SeedAsync(db);
 }
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Swagger is available in every environment while Firefin is pre-launch.
+// Gate this behind IsDevelopment() (or a config flag) before a real production deploy.
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors(FrontendCors);
 app.MapControllers();
